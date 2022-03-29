@@ -98,7 +98,7 @@ public:
         return ret == 0;
     }
     // 唤醒等待的条件变量
-    bool signal(){
+    bool signal(){ 
         return pthread_cond_signal(&m_cond) == 0;
     }
 };

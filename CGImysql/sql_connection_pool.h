@@ -37,7 +37,7 @@ private:
     
     locker lock;   //保护连接池的互斥锁
     sem reserve;   //信号量
-    list<MYSQL> connList;   //连接池
+    list<MYSQL*> connList;   //连接池
     
     int m_maxConn;//最大连接数
     int m_curConn;//当前已使用的连接数

@@ -36,7 +36,7 @@ private:
     
     
     locker lock;   //保护连接池的互斥锁
-    sem reserve;   //信号量
+    sem reserve;   //对应可用连接数的信号量
     list<MYSQL*> connList;   //连接池
     
     int m_maxConn;//最大连接数
@@ -56,7 +56,7 @@ public:
 
 class connection_RAII{
 public:
-    connection_RAII();
+    connection_RAII(MYSQL** conn, connection_pool *connPool);
     ~connection_RAII();
 
 private:

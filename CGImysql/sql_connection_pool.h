@@ -44,12 +44,13 @@ private:
     int m_freeConn;//空闲连接数
 
 public:
-    string m_url;           //主机地址
-    string m_user;          //登录用户名
-    string m_password;      //登录密码
-    string m_databaseName;  //使用的数据库名称
-    string m_port;          //数据库端口
-    int m_close_log;        //日志开关
+    string m_url;          //主机地址
+    int m_port;         //数据库端口
+    string m_user;         //登录用户名
+    string m_password;     //登录密码
+    string m_databaseName; //使用的数据库名称
+
+    int m_close_log; //日志开关
 
 };
 

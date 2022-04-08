@@ -26,7 +26,7 @@ public:
     int getFreeConn();
 
     //单例模式
-    static connection_pool& getInstance();
+    static connection_pool* getInstance();
     //初始化
     void init(string url, string user, string password, string databaseName, int port, int maxConn, int close_log);
 

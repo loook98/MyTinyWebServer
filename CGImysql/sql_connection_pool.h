@@ -54,10 +54,10 @@ public:
 
 };
 
-class connection_RAII{
+class connectionRAII{
 public:
-    connection_RAII(MYSQL** conn, connection_pool *connPool);
-    ~connection_RAII();
+    connectionRAII(MYSQL** conn, connection_pool *connPool);
+    ~connectionRAII();
 
 private:
     MYSQL* connRAII;

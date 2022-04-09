@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 
+//封装信号量的类
 class sem
 {
 private:

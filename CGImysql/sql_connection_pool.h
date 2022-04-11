@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 #include "../lock/locker.h"
-//#include "../log/log.h"
+//#include "../log/log.h"  //TODO 完善日志系统后取消注释
 
 using namespace std;
 

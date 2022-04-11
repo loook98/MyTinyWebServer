@@ -70,6 +70,11 @@ public:
     {
         return pthread_mutex_unlock(&m_mutex) == 0;
     }
+    //得到只想locker内部的pthread互斥量类型的指针
+    pthread_mutex_t *get()
+    {
+        return &m_mutex;
+    }
 };
 
 // 封装条件变量的类

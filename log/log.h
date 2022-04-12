@@ -59,7 +59,7 @@ private:
     int m_close_log;                    //关闭日志系统
 };
 
-//这四个宏定义在其他文件中使用，主要用于不同类型的日志输出
+//这四个宏定义在其他文件中使用，主要用于不同类型的日志输出 //TODO 这里不用do{}while(0)吃掉调用宏时的；吗？
 #define LOG_DEBUG(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(0, format, __VA_ARGS__); \
                                                       log::get_instance()->fflush(); }
 #define LOG_INFO(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(1, format, __VA_ARGS__); \

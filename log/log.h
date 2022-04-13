@@ -49,7 +49,7 @@ private:
     char log_name[128]; //文件名
     int m_split_lines;  //日志最大行数
     int m_log_buf_size; //日志缓冲区大小
-    long long m_count;  //日志行记录
+    long long m_count;  //记录日志行数
     int m_today;        //因为按天分类，记录当前时间是哪一天
     FILE *m_fp;         //打开log的文件指针
     char *m_buf;

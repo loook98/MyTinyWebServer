@@ -83,8 +83,7 @@ void connection_pool::init(string url, string user, string password, string data
         conn = mysql_init(conn);
         if (nullptr == conn)
         {
-            //TODO 完善日志系统后取消注释
-            //LOG_ERROR("MySQL error!");
+            LOG_ERROR("MySQL error!");
             exit(1);
         }
 
@@ -92,8 +91,7 @@ void connection_pool::init(string url, string user, string password, string data
                            m_databaseName.c_str(), m_port, nullptr, 0);
         if (nullptr == conn)
         {
-            //TODO 完善日志系统后取消注释
-            //LOG_ERROR("MySQL error!");
+            LOG_ERROR("MySQL error!");
             exit(1);
         }
 

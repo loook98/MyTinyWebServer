@@ -9,7 +9,7 @@ using namespace std;
 
 log::log() {
     m_count = 0;
-    m_close_log = 0;
+    m_is_async = false;
 }
 
 log::~log() {
@@ -41,7 +41,7 @@ bool log::init(const char *file_name, int close_log, int log_buf_size, int split
     m_split_lines = split_lines;
 
     time_t t = time(nullptr);
-    struct tm *sys_tm = localtime(nullptr);
+    struct tm *sys_tm = localtime(&t);
     struct tm my_tm = *sys_tm;
 
     //p指向file_name中最后一个/的位置
@@ -110,7 +110,7 @@ void log::write_log(int level, const char *format, ...) {
         char tail[16] = {0};
 
         //格式化日志名中的时间部分
-        snprintf(tail, 16, "%d_%02d_%02d_", my_tm.tm_year, my_tm.tm_mon, my_tm.tm_mday);
+        snprintf(tail, 16, "%d_%02d_%02d_", my_tm.tm_year + 1900, my_tm.tm_mon+1, my_tm.tm_mday);
 
         //如果不是今天的时间，则生成新日志，更新m_today和m_count
         if (m_today != my_tm.tm_mday) {

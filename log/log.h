@@ -60,13 +60,13 @@ private:
 };
 
 //这四个宏定义在其他文件中使用，主要用于不同类型的日志输出 //TODO 这里不用do{}while(0)吃掉调用宏时的；吗？
-#define LOG_DEBUG(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(0, format, __VA_ARGS__); \
-                                                      log::get_instance()->fflush(); }
-#define LOG_INFO(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(1, format, __VA_ARGS__); \
-                                                     log::get_instance()->fflush(); }
-#define LOG_WARN(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(2, format, __VA_ARGS__); \
-                                                     log::get_instance()->fflush(); }
-#define LOG_ERROR(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(3, format, __VA_ARGS__); \
-                                                      log::get_instance()->fflush(); }
+#define LOG_DEBUG(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(0, format, ##__VA_ARGS__); \
+                                                      log::get_instance()->flush(); }
+#define LOG_INFO(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(1, format, ##__VA_ARGS__); \
+                                                     log::get_instance()->flush(); }
+#define LOG_WARN(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(2, format, ##__VA_ARGS__); \
+                                                     log::get_instance()->flush(); }
+#define LOG_ERROR(format, ...) if(m_close_log == 0) { log::get_instance()->write_log(3, format, ##__VA_ARGS__); \
+                                                      log::get_instance()->flush(); }
 
 #endif //LOG_H

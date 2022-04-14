@@ -164,7 +164,3 @@ void log::flush() {
     fflush(m_fp);
     m_mutex.unlock();
 }
-
-
-
-

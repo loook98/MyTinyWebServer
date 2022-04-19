@@ -29,6 +29,7 @@ class util_timer;
 
 //连接资源
 class client_data {
+public:   //TODO 这些数据应该声明为public吧，不然后边怎么通过client_data对象使用
     //客户端socket地址
     sockaddr_in address;
 
@@ -62,10 +63,10 @@ public:
 
     //添加定时器,内部调用私有的add_timer
     void add_timer(util_timer *timer);
-    //删除定时器
-    void del_timer(util_timer *timer);
     //调整定时器timer在链表中的位置
     void adjust_timer(util_timer *timer);
+    //删除定时器
+    void del_timer(util_timer *timer);
     //定时器容器的定时事件处理函数。找到容器（链表）中所有过期的定时器，调用其cb_func回调函数。
     void tick();
 

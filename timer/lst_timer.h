@@ -71,7 +71,7 @@ public:
 
 private:
     //私有成员，被公有成员add_timer和adjust_time调用
-    //主要用于调整链表内部结点
+    //主要用于调整链表内部结点.将目标定时器timer添加到lst_head之后的部分链表中.
     void add_timer(util_timer *timer, util_timer *lst_head);
 
 private:

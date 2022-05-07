@@ -124,7 +124,7 @@ private:
 
     //m_start_line是已解析的字符数
     //get_line用于将指针向后偏移，指向未处理的字符
-    char *get_line() { return m_read_buf + m_start_line; }; //TODO 这里还要；吗
+    char *get_line() { return m_read_buf + m_start_line; }; //TODO 这里还要‘；’吗
 
     //从状态机。读取一行，分析是请求报文的哪一部分
     LINE_STATUS parse_line();
@@ -196,7 +196,7 @@ private:
     int bytes_have_send;   //已发送字节数
     char *doc_root;
 
-    map<string, string> m_user;
+    map<string, string> m_users;
     int m_TRIGMode;
     int m_close_log;
 

@@ -1,5 +1,5 @@
 #include "lst_timer.h"
-//#include "../http/http_conn.h" //TODO 完成http_conn类后取消注释
+#include "../http/http_conn.h"
 
 //sort_timer_lst类
 
@@ -214,5 +214,5 @@ void cb_func(client_data *user_data){
     epoll_ctl(Utils::u_epollfd, EPOLL_CTL_DEL, user_data->sockfd, 0);
     assert(user_data);
     close(user_data->sockfd);
-    //http_conn::m_user_count--; //TODO 完成http_conn类后取消注释
+    http_conn::m_user_count--;
 }

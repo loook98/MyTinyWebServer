@@ -30,8 +30,7 @@
 class http_conn {
     static const int FILENAME_LEN = 200;
     static const int READ_BUFFER_SIZE = 2048;
-    static cosnt in
-    WRITE_BUFFER_SIZE = 1024;
+    static const int WRITE_BUFFER_SIZE = 1024;
     //报文的请求方法
     enum METHOD {
         GET = 0,
@@ -78,14 +77,14 @@ public:
     void init(int sockfd, const sockaddr_in &addr, char *, int, int, string user, string passwd, string sqlname);
 
     //关闭http连接
-    void clost_conn(bool real_close = true);
+    void close_conn(bool real_close = true);
 
     void process();
 
     //读取浏览器端发来的全部数据
     bool read_once();
 
-    //响应报文写入函数
+    //响应报文写入socket中发出去
     bool write();
 
     sockaddr_in *get_address() {
@@ -124,14 +123,14 @@ private:
 
     //m_start_line是已解析的字符数
     //get_line用于将指针向后偏移，指向未处理的字符
-    char *get_line() { return m_read_buf + m_start_line; }; //TODO 这里还要‘；’吗
+    char *get_line() { return m_read_buf + m_start_line; }; //TODO 这里还要‘;’吗
 
     //从状态机。读取一行，分析是请求报文的哪一部分
     LINE_STATUS parse_line();
 
     void unmap();
 
-    //根据响应报文格式，生成对应8个部分，以下函数均由do_request函数调用
+    //根据响应报文格式，生成对应8个部分（放入缓冲区中），以下函数均由do_request函数调用
     bool add_response(const char *format, ...);
 
     bool add_content(const char *content);
@@ -162,7 +161,7 @@ private:
     char m_read_buf[READ_BUFFER_SIZE];
     //缓冲区m_read_buf中数据的最后一个字节的下一个位置
     int m_read_idx;
-    //m_read_buf读取的位置
+    //m_read_buf中正在读取的位置
     int m_checked_idx;
     //m_read_buf中已解析的字符个数
     int m_start_line;
@@ -186,7 +185,7 @@ private:
     int m_content_length;
     bool m_linger;
 
-    char *m_file_address; //读取服务器上的文件地址
+    char *m_file_address; //请求的文件用mmap映射到内存中的地址
     struct stat m_file_stat;
     struct iovec m_iv[2];
     int m_iv_count;
@@ -194,7 +193,7 @@ private:
     char *m_string;   //存储请求头数据
     int bytes_to_send; //剩余发送字节数
     int bytes_have_send;   //已发送字节数
-    char *doc_root;
+    char *doc_root;     //服务器上存放文件的根目录
 
     map<string, string> m_users;
     int m_TRIGMode;

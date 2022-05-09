@@ -34,7 +34,7 @@ private:
     log();
     virtual ~log();
 
-    void *async_write_log(){ //TODO 返回值为void* ?
+    void *async_write_log(){ //TODO 返回值为void* ? 这里也没return啊
         string single_log;
         //从阻塞队列中取出一个日志string，写入日志文件
         while (m_log_queue->pop(single_log)){

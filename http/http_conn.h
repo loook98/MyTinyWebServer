@@ -189,7 +189,7 @@ private:
     struct stat m_file_stat;
     struct iovec m_iv[2];
     int m_iv_count;
-    int cgi;  //是否其用的POST  TODO 这个变量干啥的
+    int cgi;  //表示是否启用CGI，1表示有CGI
     char *m_string;   //存储请求头数据
     int bytes_to_send; //剩余发送字节数
     int bytes_have_send;   //已发送字节数

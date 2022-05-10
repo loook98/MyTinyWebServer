@@ -76,6 +76,7 @@ threadpool<T>::~threadpool()
     // m_stop = true;
 }
 
+//Reactor模式用的插入工作的函数，state 0表示插入的任务为读，1表示插入的任务为写
 template <typename T>
 bool threadpool<T>::append(T *request, int state)
 {
@@ -94,6 +95,7 @@ bool threadpool<T>::append(T *request, int state)
     return true;
 }
 
+//Proactor模式使用的append
 template <typename T>
 bool threadpool<T>::append_p(T *request)
 {

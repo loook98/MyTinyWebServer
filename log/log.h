@@ -10,34 +10,40 @@
 
 using namespace std;
 
-class log{
+class log {
 public:
-    static log *get_instance(){
+    //单例模式，获取日志系统实例。
+    static log *get_instance() {
         static log instance;
         return &instance;
     }
 
-    static void *flush_log_thread(void *arg){
-        log::get_instance()->async_write_log(); //TODO 这里不用返回吗
+    //init()函数中使用pthread_create创建异步写入线程时传入的函数指针。
+    static void *flush_log_thread(void *arg) {
+        log::get_instance()->async_write_log();
     }
 
     //可选择的参数有日志文件、日志缓冲区大小、最大行数以及最长日志队列
-    bool init(const char *file_name, int close_log, int log_buf_size = 8192, int split_lines = 5000000, int max_queue_size = 0);
+    bool init(const char *file_name, int close_log, int log_buf_size = 8192, int split_lines = 5000000,
+              int max_queue_size = 0);
 
-    //将输出内容按照标准格式整理
+    // 根据格式生成要写入的日志信息字符串。
+    // 然后将日志同步地写入文件，或者异步地写入阻塞队列的函数。
     void write_log(int level, const char *format, ...);
 
     //强制刷新缓冲区
-    void flush(void );
+    void flush(void);
 
 private:
     log();
+
     virtual ~log();
 
-    void *async_write_log(){ //TODO 返回值为void* ? 这里也没return啊
+    //创建出的异步写入日志线程的具体工作流程（flush_log_thread函数中使用）。
+    void *async_write_log() { //TODO 返回值为void* ? 这里也没return啊
         string single_log;
         //从阻塞队列中取出一个日志string，写入日志文件
-        while (m_log_queue->pop(single_log)){
+        while (m_log_queue->pop(single_log)) {
             m_mutex.lock();
             fputs(single_log.c_str(), m_fp);
             m_mutex.unlock();
@@ -53,7 +59,7 @@ private:
     int m_today;        //因为按天分类，记录当前时间是哪一天
     FILE *m_fp;         //打开log的文件指针
     char *m_buf;
-    block_queue<string>  *m_log_queue;   //阻塞队列
+    block_queue<string> *m_log_queue;   //阻塞队列
     bool m_is_async;                     //异步还是同步写入
     locker m_mutex;                      //互斥量
     int m_close_log;                    //关闭日志系统

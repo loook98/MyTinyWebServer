@@ -72,6 +72,8 @@ bool log::init(const char *file_name, int close_log, int log_buf_size, int split
     return true;
 }
 
+// 根据格式生成要写入的日志信息字符串。
+// 然后将日志同步地写入文件，或者异步地写入阻塞队列的函数。
 void log::write_log(int level, const char *format, ...) {
     struct timeval now = {0, 0};
     gettimeofday(&now, nullptr);

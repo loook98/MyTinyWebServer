@@ -71,7 +71,7 @@ connection_pool* connection_pool::getInstance() {
 //构造初始化
 void connection_pool::init(string url, string user, string password, string databaseName, int port, int maxConn, int close_log) {
     m_url = url;
-    m_port = port; //TODO int赋给string？
+    m_port = port; //TODO int赋给string？ 并且后边好像也没用到m_port
     m_user = user;
     m_password = password;
     m_databaseName = databaseName;
@@ -87,8 +87,7 @@ void connection_pool::init(string url, string user, string password, string data
             exit(1);
         }
 
-        conn = mysql_real_connect(conn, m_url.c_str(), m_user.c_str(), m_password.c_str(),
-                           m_databaseName.c_str(), m_port, nullptr, 0);
+        conn = mysql_real_connect(conn, url.c_str(), user.c_str(), password.c_str(), databaseName.c_str(), port, NULL, 0);
         if (nullptr == conn)
         {
             LOG_ERROR("MySQL error!");

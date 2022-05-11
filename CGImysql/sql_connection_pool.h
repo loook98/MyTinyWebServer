@@ -15,9 +15,9 @@ using namespace std;
 
 class connection_pool{
 public:
-    //获取连接
+    //获取一个数据库连接
     MYSQL* getConnection();
-    //释放连接
+    //释放一个数据库连接
     bool releaseConnection(MYSQL* conn);
     //销毁所有连接
     void destroyPool();
@@ -25,7 +25,7 @@ public:
     //获取空闲连接数
     int getFreeConn();
 
-    //单例模式
+    //单例模式，获取数据库连接池
     static connection_pool* getInstance();
     //初始化
     void init(string url, string user, string password, string databaseName, int port, int maxConn, int close_log);
@@ -56,6 +56,7 @@ public:
 
 class connectionRAII{
 public:
+    //从给定的connPool中取出一个连接（指针），赋值给给定的指针
     connectionRAII(MYSQL** conn, connection_pool *connPool);
     ~connectionRAII();
 

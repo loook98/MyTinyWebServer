@@ -33,9 +33,9 @@ public:
     void log_write();
     void trig_mode();
     void eventListen();
-    void evenLoop();
+    void eventLoop();
     void timer(int connfd, struct sockaddr_in client_address);
-    void adjust_timer(util_timer *timer, int sockfd);
+    void adjust_timer(util_timer *timer);
     void deal_timer(util_timer *timer, int sockfd);
     bool dealclientdata();
     bool dealwithsignal(bool& timeout, bool& stop_server);

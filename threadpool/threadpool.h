@@ -136,11 +136,11 @@ void threadpool<T>::run() {
             if (0 == request->m_state) {  //0表示从请求队列中取出的是需要读的事件
                 if (request->read_once()) {
                     request->improv = 1;
-                    connectionRAII mysqlconn(&request->msql, m_connPool); //从数据库连接池中取一个连接，并且在mysqlconn这个变量生命周期结束时会自动释放取出的连接。
+                    connectionRAII mysqlconn(&request->mysql, m_connPool); //从数据库连接池中取一个连接，并且在mysqlconn这个变量生命周期结束时会自动释放取出的连接。
                     request->process();
                 } else {
                     request->improv = 1;
-                    request->time_flag = 1;
+                    request->timer_flag = 1;
                 }
             } else { //否则是1，表示从请求队列中取出的是需要写的事件
                 if (request->write()) {

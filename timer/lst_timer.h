@@ -28,8 +28,7 @@
 class util_timer;
 
 //连接资源
-class client_data {
-public:   //TODO 这些数据应该声明为public吧，不然后边怎么通过client_data对象使用
+struct client_data {
     //客户端socket地址
     sockaddr_in address;
 
@@ -40,6 +39,7 @@ public:   //TODO 这些数据应该声明为public吧，不然后边怎么通过
     util_timer *timer;
 };
 
+//定时器
 class util_timer {
 public:
     util_timer() : prev(nullptr), next(nullptr) {}
@@ -54,7 +54,7 @@ public:
     util_timer *next;
 };
 
-//定时容器类
+//定时容器
 class sort_timer_lst {
 public:
     sort_timer_lst();

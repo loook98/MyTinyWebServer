@@ -335,13 +335,14 @@ http_conn::HTTP_CODE http_conn::process_read() {
     return NO_REQUEST;
 }
 
+//准备好（用mmap完成映射）要请求的文件
 http_conn::HTTP_CODE http_conn::do_request() {
     strcpy(m_real_file, doc_root);
     int len = strlen(doc_root);
     const char *p = strchr(m_url, '/');
 
     //处理cgi
-    if (cgi == 1 && (*(p + 1) == '2' || *(p + 1) == 3)) {
+    if (cgi == 1 && (*(p + 1) == '2' || *(p + 1) == '3')) {
         //根据标志判断是登录检测还是注册检测
         char flag = m_url[1];
 
@@ -455,7 +456,7 @@ void http_conn::unmap() {
     }
 }
 
-//将报写入socket中发出去
+//将报文写入socket中发出去
 bool http_conn::write() {
     int temp = 0;
 
@@ -555,7 +556,7 @@ bool http_conn::add_content(const char *content) {
     return add_response("%s", content);
 }
 
-//根据do_request的返回状态，调用process_write向m_write_buf中写入响应报文. 然后生成write函数使用的iovec向量。
+//向m_write_buf中写入响应报文. 然后生成write函数使用的iovec向量。
 bool http_conn::process_write(HTTP_CODE ret) {
     switch (ret) {
         //内部错误，500

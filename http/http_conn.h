@@ -118,7 +118,7 @@ private:
     //主状态机中用于解析报文中请求内容的函数
     HTTP_CODE parse_content(char *text);
 
-    //生成响应报文
+    //准备好（用mmap完成映射）要请求的文件
     HTTP_CODE do_request();
 
     //m_start_line是已解析的字符数
